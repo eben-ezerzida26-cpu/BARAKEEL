@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>École BARAKEEL | Excellence & Avenir</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Charte Graphique Institutionnelle & Moderne */
+        :root {
+            --primary-blue: #0b1a30;   /* Bleu nuit */
+            --signature-violet: #5c2d91; /* Violet */
+            --accent-gold: #ffc629;    /* Jaune Or */
+            --light-bg: #f8f9fa;       /* Fond de page clair */
+            --text-dark: #1a202c;      /* Couleur du texte principal */
+            --text-muted: #718096;    /* Texte secondaire */
+            --transition-smooth: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* Animations Clés CSS */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 198, 41, 0.4); }
+            50% { transform: scale(1.02); box-shadow: 0 10px 25px 0 rgba(255, 198, 41, 0.2); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 198, 41, 0.4); }
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+            scroll-behavior: smooth;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* NOUVEAUTÉ : Bandeau Citation de la semaine tout en haut */
+        .citation-top-bar {
+            background-color: var(--signature-violet);
+            color: white;
+            text-align: center;
+            padding: 8px 20px;
+            font-size: 13px;
+            font-weight: 500;
+            border-bottom: 2px solid var(--accent-gold);
+            letter-spacing: 0.5px;
+        }
+        .citation-top-bar strong {
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-right: 5px;
+        }
+
+        /* 1. Barre de navigation supérieure */
+        header {
+            background-color: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
+            transition: var(--transition-smooth);
+        }
+
+        .brand-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--primary-blue);
+            letter-spacing: 0.5px;
+        }
+
+        .header-slogan {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--signature-violet);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--primary-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: var(--transition-smooth);
+            position: relative;
+            padding: 5px 0;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background-color: var(--signature-violet);
+            transition: var(--transition-smooth);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--signature-violet);
+        }
+
+        /* 2. Section Héro */
+        .hero {
+            background: linear-gradient(135deg, rgba(11, 26, 48, 0.95), rgba(92, 45, 145, 0.85)), url('images/campus.jpg') center/cover no-repeat;
+            min-height: 550px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            color: white;
+            padding: 40px 8%;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-slogan-badge {
+            background-color: rgba(255, 198, 41, 0.2);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 52px);
+            max-width: 800px;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 21px);
+            max-width: 650px;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .btn-action {
+            background-color: var(--accent-gold);
+            color: var(--primary-blue);
+            padding: 18px 38px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 30px;
+            text-transform: uppercase;
+            font-size: 14px;
+            box-shadow: 0 4px 20px rgba(255, 198, 41, 0.4);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-action:hover {
+            background-color: white;
+            color: var(--signature-violet);
+            transform: translateY(-4px);
+        }
+
+        /* NOUVEAUTÉ : Section Mot du Fondateur */
+        .mot-fondateur {
+            max-width: 1100px;
+            margin: 80px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .fondateur-img-box {
+            position: relative;
+        }
+
+        .fondateur-img-box img {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(11,26,48,0.1);
+            border-bottom: 8px solid var(--signature-violet);
+        }
+
+        .fondateur-message h3 {
+            color: var(--primary-blue);
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+
+        .fondateur-quote {
+            font-size: 18px;
+            font-style: italic;
+            color: var(--signature-violet);
+            margin-bottom: 20px;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .fondateur-quote::before {
+            content: "“";
+            font-size: 60px;
+            color: rgba(92, 45, 145, 0.15);
+            position: absolute;
+            left: 0;
+            top: -20px;
+            font-family: Georgia, serif;
+        }
+
+        .fondateur-nom {
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-top: 15px;
+            font-size: 16px;
+        }
+
+        .fondateur-titre {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* 3. Section Chiffres Clés */
+        .stats-banner {
+            background-color: var(--primary-blue);
+            color: white;
+            padding: 60px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            text-align: center;
+            gap: 30px;
+        }
+
+        .stat-box {
+            padding: 25px 15px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition-smooth);
+        }
+
+        .stat-box.highlight {
+            animation: pulseGlow 3s infinite ease-in-out;
+            background: rgba(255, 198, 41, 0.05);
+            border-color: rgba(255, 198, 41, 0.2);
+        }
+
+        .stat-box i {
+            font-size: 38px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .stat-box h2 {
+            font-size: 42px;
+            margin-bottom: 5px;
+            font-weight: 800;
+        }
+
+        .stat-box p {
+            font-size: 14px;
+            text-transform: uppercase;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .stat-subtext {
+            font-size: 12px;
+            color: #a0aec0;
+            margin-top: 5px;
+            display: block;
+        }
+
+        /* 4. Focus Maternelle */
+        .maternelle-focus {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 40px 20px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.03);
+        }
+
+        .maternelle-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .maternelle-badge {
+            background-color: var(--signature-violet);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .maternelle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .maternelle-info-card {
+            background: var(--light-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border-top: 4px solid var(--accent-gold);
+            transition: var(--transition-smooth);
+        }
+
+        .maternelle-info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .maternelle-info-card h4 {
+            color: var(--primary-blue);
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .maternelle-info-card ul {
+            list-style: none;
+        }
+
+        .maternelle-info-card ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .maternelle-info-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--signature-violet);
+            font-weight: bold;
+        }
+
+        /* 5. Section Cycles */
+        .section-title {
+            text-align: center;
+            margin: 80px 20px 40px;
+            color: var(--primary-blue);
+            font-size: 36px;
+            font-weight: 800;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 70px;
+            height: 5px;
+            background-color: var(--signature-violet);
+            margin: 15px auto 0;
+            border-radius: 3px;
+        }
+
+        .cycles-grid {
+            max-width: 1200px;
+            margin: 0 auto 80px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 35px;
+        }
+
+        .cycle-card {
+            background: white;
+            padding: 45px 35px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(11, 26, 48, 0.04);
+            transition: var(--transition-smooth);
+            border-left: 5px solid transparent;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .cycle-card:hover {
+            transform: translateY(-12px);
+            border-left-color: var(--signature-violet);
+            box-shadow: 0 20px 40px rgba(11, 26, 48, 0.12);
+        }
+
+        .cycle-icon {
+            font-size: 35px;
+            color: var(--signature-violet);
+            margin-bottom: 25px;
+        }
+
+        .cycle-card h3 {
+            color: var(--primary-blue);
+            font-size: 23px;
+            margin-bottom: 15px;
+        }
+
+        .cycle-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* NOUVEAUTÉ : Section Actualités Interactives */
+        .news-grid {
+            max-width: 1200px;
+            margin: 0 auto 100px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(11,26,48,0.03);
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .news-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(11,26,48,0.08);
+        }
+
+        .news-img-wrapper {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .news-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-smooth);
+        }
+
+        .news-card:hover .news-img-wrapper img {
+            transform: scale(1.08);
+        }
+
+        .news-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .news-date {
+            font-size: 12px;
+            color: var(--signature-violet);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .news-content h4 {
+            color: var(--primary-blue);
+            font-size: 18px;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .news-content p {
+            color: var(--text-muted);
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .news-link {
+            margin-top: auto;
+            color: var(--primary-blue);
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition-smooth);
+        }
+
+        .news-card:hover .news-link {
+            color: var(--signature-violet);
+            gap: 10px;
+        }
+
+        /* 6. Footer */
+        footer {
+            background-color: #06111f;
+            color: white;
+            padding: 80px 5% 30px;
+            font-size: 15px;
+        }
+
+        .footer-cols {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+            border-bottom: 1px solid #142336;
+            padding-bottom: 40px;
+        }
+
+        .footer-col h5 {
+            color: var(--accent-gold);
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .footer-col p, .footer-col a {
+            margin: 10px 0;
+            color: #a0aec0;
+            text-decoration: none;
+            display: block;
+        }
+
+        .footer-contacts a {
+            display: inline-block;
+            margin-right: 10px;
+            background: rgba(255,255,255,0.05);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            color: #637285;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; }
+            nav { flex-wrap: wrap; justify-content: center; gap: 15px; }
+            .mot-fondateur { grid-template-columns: 1fr; text-align: center; gap: 30px;}
+            .fondateur-quote { padding-left: 0; }
+            .fondateur-quote::before { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="citation-top-bar">
+        <strong>Citation de la semaine :</strong> "L'éducation est l'arme la plus puissante pour changer le monde." – Nelson Mandela
+    </div>
+
+    <header>
+        <a href="index.html" class="logo-box">
+            <img src="Logo Barakeel.jpg" alt="Logo Barakeel" class="logo-img">
+            <div class="brand-info">
+                <span class="logo-text">École BARAKEEL</span>
+                <span class="header-slogan">Discipline - Travail - Réussite</span>
+            </div>
+        </a>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="maternelle.html">Maternelle</a>
+            <a href="primaire.html">Primaire</a>
+            <a href="college.html">Collège</a>
+            <a href="lycee.html">Lycée</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-slogan-badge">Discipline &bull; Travail &bull; Réussite</div>
+        <h1>Construire un parcours d'excellence dès le premier pas</h1>
+        <p>Une éducation internationale premium centrée sur l'épanouissement, le plurilinguisme et le développement individuel de chaque élève.</p>
+        <a href="contact.html" class="btn-action">Procédure d'admission en ligne</a>
+    </section>
+
+    <section class="mot-fondateur">
+        <div class="fondateur-img-box">
+            <img src="images/fondateur.jpg" alt="Le Fondateur de l'École Barakeel">
+        </div>
+        <div class="fondateur-message">
+            <h3>Le Mot du Fondateur</h3>
+            <p class="fondateur-quote">
+                "Notre mission fondamentale à l'École BARAKEEL est de façonner des esprits curieux, outillés et dotés d'une intégrité morale forte. Chaque enfant qui franchit nos portes possède un potentiel unique que notre corps enseignant s'efforce de révéler au quotidien."
+            </p>
+            <p style="color: var(--text-dark); font-size: 15px;">
+                Depuis plus de 17 ans, nous conjuguons rigueur académique et bienveillance pour offrir un cadre d'apprentissage stimulant, préparant ainsi nos élèves à devenir les leaders de demain.
+            </p>
+            <div class="fondateur-nom">Nom du Fondateur</div>
+            <div class="fondateur-titre">Fondateur & Directeur Général</div>
+        </div>
+    </section>
+
+    <section class="stats-banner">
+        <div class="stat-box highlight">
+            <i class="fa-solid fa-hourglass-half"></i>
+            <h2>17+ ans</h2>
+            <p>D'existence</p>
+            <span class="stat-subtext">Innovation & Stabilité</span>
+        </div>
+        <div class="stat-box highlight">
+            <i class="fa-solid fa-user-graduate"></i>
+            <h2>15 000+</h2>
+            <p>Élèves formés</p>
+            <span class="stat-subtext">Parcours d'excellence</span>
+        </div>
+        <div class="stat-box">
+            <i class="fa-solid fa-certificate"></i>
+            <h2>100%</h2>
+            <p>Réussite au CEP</p>
+            <span class="stat-subtext">Enseignement Primaire</span>
+        </div>
+        <div class="stat-box">
+            <i class="fa-solid fa-award"></i>
+            <h2>100%</h2>
+            <p>Réussite au BEPC</p>
+            <span class="stat-subtext">Premier Cycle Secondaire</span>
+        </div>
+        <div class="stat-box">
+            <i class="fa-solid fa-graduation-cap"></i>
+            <h2>100%</h2>
+            <p>Réussite au BAC</p>
+            <span class="stat-subtext">Baccalauréat Général</span>
+        </div>
+    </section>
+
+    <section class="maternelle-focus">
+        <div class="maternelle-header">
+            <span class="maternelle-badge">Focus Admissions</span>
+            <h2 style="color: var(--primary-blue); margin-top:10px; font-weight:800;">De la Petite Section à la Grande Section</h2>
+            <p style="color: var(--text-muted); max-width:600px; margin: 10px auto 0;">Placer l'élève au cœur de notre projet éducatif dès l'âge de 3 ans pour favoriser un épanouissement personnel, structuré et inclusif.</p>
+        </div>
+        <div class="maternelle-grid">
+            <div class="maternelle-info-card">
+                <h4><i class="fa-solid fa-language"></i> Cursus Plurilingue</h4>
+                <ul>
+                    <li>Immersion précoce et apprentissage structuré dès la Petite Section (3 ans).</li>
+                    <li>Développement de l'expression orale et de la confiance en soi.</li>
+                    <li>Ouverture interculturelle pour comprendre et questionner le monde.</li>
+                </ul>
+            </div>
+            <div class="maternelle-info-card">
+                <h4><i class="fa-solid fa-lightbulb"></i> Compétences du XXIe Siècle</h4>
+                <ul>
+                    <li>Éveil de l'esprit critique, du libre arbitre et de la quête de vérité.</li>
+                    <li>Initiation technologique adaptée et ateliers de créativité (STIAM).</li>
+                    <li>Apprentissage par l'expérience et manipulation active.</li>
+                </ul>
+            </div>
+            <div class="maternelle-info-card">
+                <h4><i class="fa-solid fa-heart"></i> Environnement Bienveillant</h4>
+                <ul>
+                    <li>Accompagnement personnalisé et classes à taille humaine.</li>
+                    <li>Valorisation de l'autonomie et du sens des responsabilités.</li>
+                    <li>Coopération active entre les professeurs, les enfants et les parents.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <h2 class="section-title">Nos Cycles de Formation</h2>
+    <main class="cycles-grid">
+        <a href="maternelle.html" class="cycle-card">
+            <div class="cycle-icon"><i class="fa-solid fa-child"></i></div>
+            <h3>Cycle Maternelle</h3>
+            <p>Un espace bienveillant axé sur l'éveil linguistique, l'acquisition de l'autonomie et le développement de la créativité (Dès 3 ans pour la Petite Section).</p>
+        </a>
+        <a href="primaire.html" class="cycle-card">
+            <div class="cycle-icon"><i class="fa-solid fa-book-open"></i></div>
+            <h3>Cycle Primaire</h3>
+            <p>Consolidation approfondie des savoirs fondamentaux et parcours internationaux multilingues au cœur de notre école de demain.</p>
+        </a>
+        <a href="college.html" class="cycle-card">
+            <div class="cycle-icon"><i class="fa-solid fa-users"></i></div>
+            <h3>Cycle Collège</h3>
+            <p>Développement méthodique de l'esprit critique, rigueur de travail personnelle et apprentissage renforcé de 4 langues.</p>
+        </a>
+        <a href="lycee.html" class="cycle-card">
+            <div class="cycle-icon"><i class="fa-solid fa-building-columns"></i></div>
+            <h3>Cycle Lycée</h3>
+            <p>Excellence académique ciblée, certifications internationales et préparation réussie aux meilleures études supérieures.</p>
+        </a>
+    </main>
+
+    <h2 class="section-title">Actualités de l'Établissement</h2>
+    <section class="news-grid">
+        <a href="#" class="news-card">
+            <div class="news-img-wrapper">
+                <img src="images/news1.jpg" alt="Inscriptions rentrée scolaire">
+            </div>
+            <div class="news-content">
+                <div class="news-date">Admissions 2026</div>
+                <h4>Ouverture des inscriptions pour la rentrée scolaire</h4>
+                <p>Les dossiers de candidature pour tous les cycles, de la Maternelle (dès 3 ans) au Lycée, sont désormais disponibles en ligne.</p>
+                <div class="news-link">Lire la suite <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+        </a>
+
+        <a href="#" class="news-card">
+            <div class="news-img-wrapper">
+                <img src="images/news2.jpg" alt="Atelier sciences et robotique">
+            </div>
+            <div class="news-content">
+                <div class="news-date">Événement</div>
+                <h4>Retour sur la journée "Sciences et Innovation"</h4>
+                <p>Nos élèves ont partagé leurs projets scientifiques et technologiques lors de notre grande exposition annuelle (ateliers STIAM).</p>
+                <div class="news-link">Lire la suite <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+        </a>
+
+        <a href="#" class="news-card">
+            <div class="news-img-wrapper">
+                <img src="images/news3.jpg" alt="Certifications internationales langues">
+            </div>
+            <div class="news-content">
+                <div class="news-date">Excellence</div>
+                <h4>Nouveaux partenariats de certifications linguistiques</h4>
+                <p>L'école BARAKEEL renforce son cursus plurilingue en intégrant de nouvelles certifications internationales reconnues.</p>
+                <div class="news-link">Lire la suite <i class="fa-solid fa-arrow-right"></i></div>
+            </div>
+        </a>
+    </section>
+
+    <footer>
+        <div class="footer-cols">
+            <div class="footer-col">
+                <h5>École BARAKEEL</h5>
+                <p>Une école tournée vers l'avenir, cultivant la curiosité, la rigueur et la réussite de chaque élève.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Liens Rapides</h5>
+                <a href="contact.html">Frais de scolarité</a>
+                <a href="contact.html">Procédures d'Admission</a>
+                <a href="index.html">Projet d'Établissement</a>
+            </div>
+            <div class="footer-col">
+                <h5>Contact</h5>
+                <p style="color: #a0aec0; margin-bottom: 5px;"><i class="fa-solid fa-phone" style="margin-right: 5px; color: var(--accent-gold);"></i> Téléphones :</p>
+                <div class="footer-contacts">
+                    <a href="tel:+22674827448">+226 74 82 74 48</a>
+                    <a href="tel:+22672079943">72 07 99 43</a>
+                    <a href="tel:+22679757799">79 75 77 99</a>
+                </div>
+                <p style="margin-top: 15px;"><i class="fa-solid fa-envelope" style="margin-right: 5px; color: var(--accent-gold);"></i> contact@barakeel.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 École BARAKEEL - Tous droits réservés.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
