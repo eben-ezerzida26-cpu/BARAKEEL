@@ -226,6 +226,7 @@
 
         <!-- Section Contacts : Numéros cliquables + Gmail -->
 <!-- Section Contacts : Numéros cliquables + Mail universel mobile/ordinateur -->
+<!-- Section Contacts : Numéros cliquables + Mail Intelligent -->
         <div class="footer-contacts-bar" style="max-width: 1200px; margin: 20px auto 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; flex-wrap: wrap; color: #cbd5e1; font-size: 13px;">
             <div>
                 <i class="fa-solid fa-phone" style="color: #ffc629; margin-right: 5px;"></i> 
@@ -235,11 +236,37 @@
                 <a href="tel:+22679757799" style="color: #cbd5e1; text-decoration: none; transition: var(--transition-smooth);">79 75 77 99</a>
             </div>
             <div>
-                <a href="https://mail.google.com/mail/?view=cm&fs=1&to=contact@barakeel.com" target="_blank" style="color: #cbd5e1; text-decoration: none; transition: var(--transition-smooth);">
+                <!-- Le clic déclenche la fonction JavaScript "ouvrirMail()" définie ci-dessous -->
+                <a href="#" onclick="ouvrirMail(event)" style="color: #cbd5e1; text-decoration: none; transition: var(--transition-smooth);">
                     <i class="fa-solid fa-envelope" style="color: #ffc629; margin-right: 5px;"></i> contact@barakeel.com
                 </a>
             </div>
         </div>
+
+        <!-- SCRIPT JAVASCRIPT À AJOUTER JUSTE EN DESSOUS -->
+        <script>
+        function ouvrirMail(event) {
+            event.preventDefault(); // Empêche la page de remonter en haut au clic
+            
+            var email = "contact@barakeel.com";
+            var estMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+            if (estMobile) {
+                // 1. Tente d'ouvrir directement l'application Gmail mobile si elle est installée
+                var gmailUrl = "googlegmail:///co?to=" + email;
+                window.location.href = gmailUrl;
+
+                // 2. Sécurité : Si l'application Gmail ne s'ouvre pas après 1,5 seconde, bascule sur le mailto classique
+                setTimeout(function() {
+                    window.location.href = "mailto:" + email;
+                }, 1500);
+            } else {
+                // Sur ordinateur, ouvre directement l'interface de composition web de Gmail
+                var urlWeb = "https://mail.google.com/mail/?view=cm&fs=1&to=" + email;
+                window.open(urlWeb, '_blank');
+            }
+        }
+        </script>
 
         <div class="footer-bottom" style="margin-top: 20px;">
             <p>&copy; 2026 École BARAKEEL - Tous droits réservés.</p>
