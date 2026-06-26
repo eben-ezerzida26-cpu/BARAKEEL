@@ -192,8 +192,9 @@
     </div>
 
 <footer>
+<footer>
         <div class="footer-cols">
-            <!-- Colonne 1 : LIENS RAPIDES (Prend la première place désormais) -->
+            <!-- Colonne 1 : LIENS RAPIDES -->
             <div class="footer-col">
                 <h5>LIENS RAPIDES</h5>
                 <a href="fiche-de-renseignement.pdf" target="_blank">Fiche de Renseignement (PDF)</a>
@@ -222,51 +223,44 @@
                 <p><strong style="color: white;">Lun - Ven :</strong> 07h-12h | 15h-17h</p>
                 <p><strong style="color: white;">Samedi :</strong> 08h – 11h30</p>
             </div>
-        </div>
 
-        <!-- Section Contacts : Numéros cliquables + Gmail -->
-<!-- Section Contacts : Numéros cliquables + Mail universel mobile/ordinateur -->
-<!-- Section Contacts : Numéros cliquables + Mail Intelligent -->
-        <div class="footer-contacts-bar" style="max-width: 1200px; margin: 20px auto 0; padding-top: 20px; border-top: 1px solid rgba(255, 255, 255, 0.05); display: flex; justify-content: space-between; flex-wrap: wrap; color: #cbd5e1; font-size: 13px;">
-            <div>
-                <i class="fa-solid fa-phone" style="color: #ffc629; margin-right: 5px;"></i> 
-                <strong>Téléphones :</strong> &nbsp; 
-                <a href="tel:+22674827448" style="color: #cbd5e1; text-decoration: none; transition: var(--transition-smooth);">+226 74 82 74 48</a> &nbsp;|&nbsp; 
-                <a href="tel:+22672079943" style="color: #cbd5e1; text-decoration: none; transition: var(--transition-smooth);">72 07 99 43</a> &nbsp;|&nbsp; 
-                <a href="tel:+22679757799" style="color: #cbd5e1; text-decoration: none; transition: var(--transition-smooth);">79 75 77 99</a>
-            </div>
-            <div>
-                <!-- Le clic déclenche la fonction JavaScript "ouvrirMail()" définie ci-dessous -->
-                <a href="#" onclick="ouvrirMail(event)" style="color: #cbd5e1; text-decoration: none; transition: var(--transition-smooth);">
+            <!-- Colonne 4 : LE RETOUR DE "CONTACT" EN TITRE JAUNE -->
+            <div class="footer-col">
+                <h5>CONTACT</h5>
+                <p style="margin-bottom: 8px;">
+                    <i class="fa-solid fa-phone" style="color: #ffc629; margin-right: 5px;"></i> 
+                    <strong style="color: white;">Téléphones :</strong>
+                </p>
+                <a href="tel:+22674827448" style="color: #cbd5e1; text-decoration: none; display: block; margin-bottom: 4px; padding-left: 20px;">+226 74 82 74 48</a>
+                <a href="tel:+22672079943" style="color: #cbd5e1; text-decoration: none; display: block; margin-bottom: 4px; padding-left: 20px;">+226 72 07 99 43</a>
+                <a href="tel:+22679757799" style="color: #cbd5e1; text-decoration: none; display: block; margin-bottom: 12px; padding-left: 20px;">+226 79 75 77 99</a>
+
+                <a href="#" onclick="ouvrirMail(event)" style="color: #cbd5e1; text-decoration: none; display: block; margin-top: 10px;">
                     <i class="fa-solid fa-envelope" style="color: #ffc629; margin-right: 5px;"></i> contact@barakeel.com
                 </a>
             </div>
         </div>
 
-        <!-- SCRIPT JAVASCRIPT À AJOUTER JUSTE EN DESSOUS -->
-        <script>
-        function ouvrirMail(event) {
-            event.preventDefault(); // Empêche la page de remonter en haut au clic
-            
-            var email = "contact@barakeel.com";
-            var estMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+        <div class="footer-bottom" style="margin-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px;">
+            <p>&copy; 2026 École BARAKEEL - Tous droits réservés.</p>
+        </div>
+    </footer>
 
-            if (estMobile) {
-                // 1. Tente d'ouvrir directement l'application Gmail mobile si elle est installée
-                var gmailUrl = "googlegmail:///co?to=" + email;
-                window.location.href = gmailUrl;
+    <!-- SCRIPT DE SÉCURITÉ POUR LE EMAIL -->
+    <script>
+    function ouvrirMail(event) {
+        event.preventDefault();
+        var email = "contact@barakeel.com";
+        var estMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-                // 2. Sécurité : Si l'application Gmail ne s'ouvre pas après 1,5 seconde, bascule sur le mailto classique
-                setTimeout(function() {
-                    window.location.href = "mailto:" + email;
-                }, 1500);
-            } else {
-                // Sur ordinateur, ouvre directement l'interface de composition web de Gmail
-                var urlWeb = "https://mail.google.com/mail/?view=cm&fs=1&to=" + email;
-                window.open(urlWeb, '_blank');
-            }
+        if (estMobile) {
+            window.location.href = "mailto:" + email;
+        } else {
+            var urlWeb = "https://mail.google.com/mail/?view=cm&fs=1&to=" + email;
+            window.open(urlWeb, '_blank');
         }
-        </script>
+    }
+    </script>
 
         <div class="footer-bottom" style="margin-top: 20px;">
             <p>&copy; 2026 École BARAKEEL - Tous droits réservés.</p>
