@@ -534,111 +534,56 @@ nav a:hover {
 }
 
 /* 8. Section Témoignages */
-.testimonials-section {
-    background-color: white;
-    padding: 90px 0;
-    margin-top: 100px;
-}
-
-.testimonials-grid {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 35px;
-}
-
-.testimonial-card {
-    background-color: var(--light-bg);
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-    position: relative;
-    transition: var(--transition-smooth);
-}
-
-.testimonial-card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.05);
-}
-
-.stars {
-    color: var(--accent-gold);
-    margin-bottom: 15px;
-    font-size: 14px;
-}
-
-.testimonial-card p {
-    font-style: italic;
-    color: var(--text-dark);
-    font-size: 15px;
-    margin-bottom: 20px;
-}
-
-.parent-info {
-    font-weight: 700;
-    color: var(--primary-blue);
-    font-size: 14px;
-}
-
-.parent-sub {
-    font-size: 12px;
-    color: var(--text-muted);
-}
-/* --- FORCE LE SCROLL HORIZONTAL SUR UNE SEULE LIGNE --- */
+/* --- SECTION TÉMOIGNAGES COMPLÈTE --- */
 
 .testimonials-carousel-section {
-    padding: 50px 0;
+    padding: 60px 0;
     width: 100%;
-    background-color: #ffffff; /* Ajuste selon ton fond */
+    background-color: #ffffff;
 }
 
-/* 1. La fenêtre qui permet de voir le défilement vers la droite */
+/* Le conteneur qui glisse horizontalement */
 .testimonial-carousel-wrapper {
     width: 100%;
-    overflow-x: auto;          /* ACTIVE LE SCROLL HORIZONTAL */
-    overflow-y: hidden;        /* DESACTIVE LE SCROLL VERTICAL */
-    scroll-snap-type: x mandatory; /* Aimante les cartes proprement au scroll */
-    padding: 20px 0;
-    
-    /* Masque la barre de défilement pour que ce soit propre */
-    scrollbar-width: none;     
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    padding: 20px 0 10px 0;
+    scrollbar-width: none; /* Masque la barre sur Firefox */
 }
 
 .testimonial-carousel-wrapper::-webkit-scrollbar {
-    display: none;             /* Masque la barre sur Chrome/Safari/Téléphones */
+    display: none; /* Masque la barre sur Chrome/Safari/Téléphone */
 }
 
-/* 2. Le rail magique qui aligne TOUT sur une seule ligne infinie */
+/* Le rail horizontal */
 .testimonial-cards-container {
-    display: flex;             /* Met toutes les cartes sur la même ligne */
-    flex-wrap: nowrap;         /* COEUR DU TRUC : Interdit STRICTEMENT aux cartes d'aller à la ligne */
-    gap: 25px;                 /* Espace entre les blocs */
-    padding: 10px 20px;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 30px;
+    padding: 10px 24px;
 }
 
-/* 3. Vos cartes (on fige leur largeur pour qu'elles ne s'écrasent pas) */
+/* Structure de vos cartes d'origine */
 .testimonial-card {
-    background: #f4f6f9;       /* Ton gris clair d'origine */
-    padding: 30px;
-    border-radius: 16px;       /* Tes beaux arrondis */
-    
-    width: 350px;              /* Largeur fixe de la carte sur grand écran */
-    flex-shrink: 0;            /* EMPECHE la carte de rétrécir, elle garde sa taille et pousse vers la droite */
-    scroll-snap-align: center; /* Centre la carte sur l'écran du téléphone */
+    background: #f4f6f9;
+    padding: 35px;
+    border-radius: 16px;
+    width: 380px; /* Largeur idéale sur ordinateur */
+    flex-shrink: 0;
+    scroll-snap-align: center;
     
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }
 
-/* Style de tes textes d'origine */
 .testimonial-text {
     font-style: italic;
     color: #333;
     line-height: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .student-name {
@@ -652,11 +597,40 @@ nav a:hover {
     color: #666;
 }
 
-/* 4. Ajustement spécial pour l'écran des téléphones */
-@media (max-width: 480px) {
+/* DESIGN DES POINTS EN BAS */
+.carousel-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 35px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #cbd5e1; /* Gris clair pour les points inactifs */
+    transition: all 0.3s ease;
+}
+
+.active-dot {
+    background-color: #5d34a4; /* Votre couleur violette/bleue principale pour le point actif */
+    width: 20px;               /* Forme étirée moderne pour le point actif */
+    border-radius: 4px;
+}
+
+/* --- ASTUCE VISUELLE : OPTIMISATION MOBILE / TABLETTE --- */
+@media (max-width: 1024px) {
+    /* Sur tablette et mobile, on force la carte à faire 80% de l'écran 
+       pour que la carte suivante dépasse obligatoirement sur le bord droit ! */
     .testimonial-card {
-        width: 85vw; /* Sur téléphone, la carte prend 85% de la largeur de l'écran, laissant deviner le début de la carte suivante à droite */
-        padding: 20px;
+        width: 80vw; 
+        padding: 25px;
+    }
+    .testimonial-cards-container {
+        gap: 20px;
+        padding-left: 15px;
     }
 }
 
