@@ -586,12 +586,79 @@ nav a:hover {
     font-size: 12px;
     color: var(--text-muted);
 }
+/* --- CONFIGURATION DU CARROUSEL HORIZONTAL --- */
+
+.testimonials-carousel-section {
+    padding: 60px 0;
+    width: 100%;
+    overflow: hidden; /* Empêche les barres de défilement globales cassées */
+}
+
+/* Le conteneur qui écoute le défilement */
+.testimonial-carousel-wrapper {
+    width: 100%;
+    overflow-x: auto;         /* Active le scroll horizontal */
+    scroll-snap-type: x mandatory; /* Aimante les cartes proprement lors du défilement */
+    padding: 20px 10px;
+    scrollbar-width: none;    /* Masque la barre de défilement laide (Firefox) */
+}
+
+.testimonial-carousel-wrapper::-webkit-scrollbar {
+    display: none;            /* Masque la barre de défilement laide (Chrome/Safari) */
+}
+
+/* Le rail qui contient toutes les cartes côte à côte */
+.testimonial-cards-container {
+    display: flex;            /* Aligne toutes les cartes sur une seule ligne */
+    gap: 30px;                /* Espace entre vos cartes */
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+/* Vos cartes d'origine adaptées pour le défilement */
+.testimonial-card {
+    background: #f4f6f9;      /* Votre fond gris très clair actuel */
+    padding: 35px;
+    border-radius: 16px;      /* Vos beaux angles arrondis */
+    width: 380px;             /* Largeur parfaite pour ordinateur et téléphone */
+    flex-shrink: 0;           /* REQUIS : Empêche le navigateur d'écraser la largeur des cartes */
+    scroll-snap-align: center;/* Aligne la carte au centre de l'écran du téléphone au scroll */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+    
+    /* Gère la distribution interne (texte en haut, auteur collé en bas) */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Style de vos textes */
+.testimonial-text {
+    font-style: italic;
+    color: #333;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+.testimonial-author {
+    margin-top: auto;
+}
+
+/* Pour les téléphones : réduit légèrement la largeur pour qu'on devine la carte suivante */
+@media (max-width: 480px) {
+    .testimonial-card {
+        width: 290px; /* Plus petit pour s'adapter aux écrans des smartphones */
+        padding: 20px;
+    }
+    .testimonial-cards-container {
+        gap: 15px;
+    }
+}
 
 /* 9. Pied de page */
 footer {
     background-color: #06111f;
     color: white;
-    padding: 90px 5% 40px;
+    padding: 40px 5% 40px;
     font-size: 15px;
 }
 
