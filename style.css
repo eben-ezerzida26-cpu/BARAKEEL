@@ -586,71 +586,77 @@ nav a:hover {
     font-size: 12px;
     color: var(--text-muted);
 }
-/* --- CONFIGURATION DU CARROUSEL HORIZONTAL --- */
+/* --- FORCE LE SCROLL HORIZONTAL SUR UNE SEULE LIGNE --- */
 
 .testimonials-carousel-section {
-    padding: 60px 0;
+    padding: 50px 0;
     width: 100%;
-    overflow: hidden; /* Empêche les barres de défilement globales cassées */
+    background-color: #ffffff; /* Ajuste selon ton fond */
 }
 
-/* Le conteneur qui écoute le défilement */
+/* 1. La fenêtre qui permet de voir le défilement vers la droite */
 .testimonial-carousel-wrapper {
     width: 100%;
-    overflow-x: auto;         /* Active le scroll horizontal */
-    scroll-snap-type: x mandatory; /* Aimante les cartes proprement lors du défilement */
-    padding: 20px 10px;
-    scrollbar-width: none;    /* Masque la barre de défilement laide (Firefox) */
+    overflow-x: auto;          /* ACTIVE LE SCROLL HORIZONTAL */
+    overflow-y: hidden;        /* DESACTIVE LE SCROLL VERTICAL */
+    scroll-snap-type: x mandatory; /* Aimante les cartes proprement au scroll */
+    padding: 20px 0;
+    
+    /* Masque la barre de défilement pour que ce soit propre */
+    scrollbar-width: none;     
 }
 
 .testimonial-carousel-wrapper::-webkit-scrollbar {
-    display: none;            /* Masque la barre de défilement laide (Chrome/Safari) */
+    display: none;             /* Masque la barre sur Chrome/Safari/Téléphones */
 }
 
-/* Le rail qui contient toutes les cartes côte à côte */
+/* 2. Le rail magique qui aligne TOUT sur une seule ligne infinie */
 .testimonial-cards-container {
-    display: flex;            /* Aligne toutes les cartes sur une seule ligne */
-    gap: 30px;                /* Espace entre vos cartes */
-    padding-left: 20px;
-    padding-right: 20px;
+    display: flex;             /* Met toutes les cartes sur la même ligne */
+    flex-wrap: nowrap;         /* COEUR DU TRUC : Interdit STRICTEMENT aux cartes d'aller à la ligne */
+    gap: 25px;                 /* Espace entre les blocs */
+    padding: 10px 20px;
 }
 
-/* Vos cartes d'origine adaptées pour le défilement */
+/* 3. Vos cartes (on fige leur largeur pour qu'elles ne s'écrasent pas) */
 .testimonial-card {
-    background: #f4f6f9;      /* Votre fond gris très clair actuel */
-    padding: 35px;
-    border-radius: 16px;      /* Vos beaux angles arrondis */
-    width: 380px;             /* Largeur parfaite pour ordinateur et téléphone */
-    flex-shrink: 0;           /* REQUIS : Empêche le navigateur d'écraser la largeur des cartes */
-    scroll-snap-align: center;/* Aligne la carte au centre de l'écran du téléphone au scroll */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.01);
+    background: #f4f6f9;       /* Ton gris clair d'origine */
+    padding: 30px;
+    border-radius: 16px;       /* Tes beaux arrondis */
     
-    /* Gère la distribution interne (texte en haut, auteur collé en bas) */
+    width: 350px;              /* Largeur fixe de la carte sur grand écran */
+    flex-shrink: 0;            /* EMPECHE la carte de rétrécir, elle garde sa taille et pousse vers la droite */
+    scroll-snap-align: center; /* Centre la carte sur l'écran du téléphone */
+    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-/* Style de vos textes */
+/* Style de tes textes d'origine */
 .testimonial-text {
     font-style: italic;
     color: #333;
     line-height: 1.5;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.testimonial-author {
-    margin-top: auto;
+.student-name {
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 2px;
 }
 
-/* Pour les téléphones : réduit légèrement la largeur pour qu'on devine la carte suivante */
+.student-program {
+    font-size: 13px;
+    color: #666;
+}
+
+/* 4. Ajustement spécial pour l'écran des téléphones */
 @media (max-width: 480px) {
     .testimonial-card {
-        width: 290px; /* Plus petit pour s'adapter aux écrans des smartphones */
+        width: 85vw; /* Sur téléphone, la carte prend 85% de la largeur de l'écran, laissant deviner le début de la carte suivante à droite */
         padding: 20px;
-    }
-    .testimonial-cards-container {
-        gap: 15px;
     }
 }
 
