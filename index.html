@@ -349,80 +349,56 @@
     }
     </script>
 
-    <script>
-        // Fonction globale d'animation des valeurs numériques
-        function animateCounter(counterElement) {
-            const target = parseInt(counterElement.getAttribute('data-target'), 10);
-            
-            // Paramètres de l'animation temporelle (durée totale fixe : ~2000ms)
-            const duration = 2000; 
-            const frameRate = 1000 / 60; // 60 images par seconde
-            const totalFrames = Math.round(duration / frameRate);
-            
-            let currentFrame = 0;
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const wrapper = document.getElementById("testimonialWrapper");
+    const paginationZone = document.getElementById("carouselPagination");
 
-            const updateValue = () => {
-                currentFrame++;
-                
-                // Calcul de la progression linéaire
-                const progress = currentFrame / totalFrames;
-                const currentValue = Math.min(Math.floor(target * progress), target);
+    if (wrapper && paginationZone) {
+        // Recherche toutes les cartes directement par leur classe CSS
+        const cards = wrapper.querySelectorAll(".testimonial-card");
+        
+        // 1. Génération automatique des points
+        paginationZone.innerHTML = "";
+        cards.forEach((_, index) => {
+            const dot = document.createElement("span");
+            dot.classList.add("dot");
+            if (index === 0) dot.classList.add("active-dot");
+            paginationZone.appendChild(dot);
+        });
 
-                // Formatage à chaque étape avec les bonnes unités finales
-                if (target === 17) {
-                    counterElement.innerText = currentValue + "+ ans";
-                } else if (target === 15000) {
-                    counterElement.innerText = currentValue.toLocaleString('fr-FR') + "+";
-                } else if (target === 100) {
-                    counterElement.innerText = currentValue + "%";
-                } else {
-                    counterElement.innerText = currentValue;
-                }
+        const dots = paginationZone.querySelectorAll(".dot");
 
-                // Si l'animation n'est pas complète, continuer à la prochaine frame
-                if (currentFrame < totalFrames) {
-                    requestAnimationFrame(updateValue);
-                } else {
-                    // Double sécurité finale pour forcer la correspondance exacte
-                    if (target === 17) counterElement.innerText = "17+ ans";
-                    else if (target === 15000) counterElement.innerText = "15 000+";
-                    else if (target === 100) counterElement.innerText = "100%";
-                }
-            };
+        // 2. Fonction de calcul radar au centre du conteneur
+        const updateDots = () => {
+            const wrapperRect = wrapper.getBoundingClientRect();
+            const centerX = wrapperRect.left + wrapperRect.width / 2;
 
-            // Lancement initial de la boucle fluide natonale
-            requestAnimationFrame(updateValue);
-        }
+            let closestIndex = 0;
+            let minDistance = Infinity;
 
-        // Gestion globale lors du scroll
-        function handleScrollAnimations() {
-            // 1. Apparition des éléments masqués (reveal)
-            const reveals = document.querySelectorAll(".reveal");
-            const windowHeight = window.innerHeight;
+            cards.forEach((card, index) => {
+                const cardRect = card.getBoundingClientRect();
+                const cardCenter = cardRect.left + cardRect.width / 2;
+                const distance = Math.abs(centerX - cardCenter);
 
-            reveals.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                if (elementTop < windowHeight - 100) {
-                    element.classList.add("active");
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    closestIndex = index;
                 }
             });
 
-            // 2. Déclenchement unique des compteurs de statistiques
-            const counters = document.querySelectorAll(".counter");
-            counters.forEach(counter => {
-                const counterTop = counter.getBoundingClientRect().top;
-                
-                // Si l’élément entre dans l'affichage et n'a pas déjà démarré
-                if (counterTop < windowHeight - 50 && !counter.classList.contains('started')) {
-                    counter.classList.add('started');
-                    animateCounter(counter);
-                }
+            // Met à jour l'état actif (équivalence directe)
+            dots.forEach((dot, idx) => {
+                dot.classList.toggle("active-dot", idx === closestIndex);
             });
-        }
+        };
 
-        // Liaison aux événements système (Défilement et chargement du DOM)
-        window.addEventListener("scroll", handleScrollAnimations);
-        window.addEventListener("DOMContentLoaded", handleScrollAnimations);
-    </script>
+        // Déclencheurs
+        wrapper.addEventListener("scroll", updateDots);
+        window.addEventListener("resize", updateDots);
+    }
+});
+</script>
 </body>
 </html>
