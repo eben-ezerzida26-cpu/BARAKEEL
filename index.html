@@ -429,6 +429,59 @@
 
     window.addEventListener("scroll", handleScrollAnimations);
     window.addEventListener("DOMContentLoaded", handleScrollAnimations);
+const wrapper = document.getElementById("testimonialWrapper");
+const cards = document.querySelectorAll(".testimonial-card");
+const pagination = document.getElementById("carouselPagination");
+
+// Création des points
+cards.forEach((card, index) => {
+
+    const dot = document.createElement("span");
+    dot.classList.add("pagination-dot");
+
+    if (index === 0) {
+        dot.classList.add("active");
+    }
+
+    dot.addEventListener("click", () => {
+
+        card.scrollIntoView({
+            behavior: "smooth",
+            inline: "center"
+        });
+
+    });
+
+    pagination.appendChild(dot);
+
+});
+
+const dots = document.querySelectorAll(".pagination-dot");
+
+// Mise à jour du point actif
+wrapper.addEventListener("scroll", () => {
+
+    let activeIndex = 0;
+    let minDistance = Infinity;
+
+    cards.forEach((card, index) => {
+
+        const distance = Math.abs(
+            card.getBoundingClientRect().left -
+            wrapper.getBoundingClientRect().left
+        );
+
+        if (distance < minDistance) {
+            minDistance = distance;
+            activeIndex = index;
+        }
+
+    });
+
+    dots.forEach(dot => dot.classList.remove("active"));
+    dots[activeIndex].classList.add("active");
+
+});
 </script>
 </body>
 </html>
